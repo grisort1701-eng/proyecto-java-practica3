@@ -1,17 +1,16 @@
-# Imagen base con Java 17 y Maven
-FROM maven:3.9.6-eclipse-temurin-17 AS build
+# Usa Java 17 para compilar y ejecutar
+FROM openjdk:17-jdk-slim
 
-# Carpeta de trabajo
+# Crea el directorio de trabajo
 WORKDIR /app
 
-# Copiar el proyecto al contenedor
+# Copia todos los archivos del proyecto
 COPY . .
 
-# Compilar el proyecto y crear el .jar
-RUN mvn clean package -DskipTests
+# Compila todos los archivos .java dentro del proyecto
+RUN javac $(find . -name "*.java")
 
-# Fase final: ejecutar el .jar
-FROM eclipse-temurin:17-jdk
-WORKDIR /app
-COPY --from=build /app/target/*.jar app.jar
-CMD ["java", "-jar", "app.jar"]
+# Ejecuta el programa principal
+# 👇 CAMBIA este nombre por el paquete y clase principal de tu proyecto
+CMD ["java", "com.mycompany.practica3.Practica3"]
+
