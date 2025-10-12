@@ -1,16 +1,11 @@
-# Usa Java 17 para compilar y ejecutar
 FROM openjdk:17-jdk-slim
 
-# Crea el directorio de trabajo
 WORKDIR /app
 
-# Copia todos los archivos del proyecto
 COPY . .
 
-# Compila todos los archivos .java dentro del proyecto
-RUN javac $(find . -name "*.java")
+# Compilar los archivos Java dentro del paquete
+RUN javac -d . ./main/java/com/mycompany/practica3/*.java
 
-# Ejecuta el programa principal
-# 👇 CAMBIA este nombre por el paquete y clase principal de tu proyecto
-CMD ["java", "com.mycompany.practica3.Practica3"]
-
+# Ejecutar el programa principal
+CMD ["java", "-cp", ".", "com.mycompany.practica3.Practica3"]
